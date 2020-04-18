@@ -1,0 +1,8 @@
+{
+  "name": "pengiraanmco",
+  "version": "1.0.0",
+  "description": "View how long MCO will last for",
+  "main": "index.js",
+  "author": "Mabweh <imabweh@gmail.com>",
+  "license": "MIT"
+}
