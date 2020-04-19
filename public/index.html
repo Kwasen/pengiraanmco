@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pengiraan MCO</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./index.css" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <h3 class="heading">Malaysia MCO Countdown (28th April, 2020)</h3>
+
+        <!-- months, weeks, days, hours, minutes, seconds.. ticking in differential font size and color gradient. dark -->
+        <div class="time-container">
+
+            <div class="left --align-right">
+                <span id="showDays">0</span>
+                <span id="showHours">0</span>
+                <span id="showMinutes">0</span>
+                <span id="showSeconds">0</span>
+            </div>
+            <div class="right --align-left">
+                <label for="showDays">Days</label>
+                <label for="showHours">Hours</label>
+                <label for="showMinutes">Minutes</label>
+                <label for="showSeconds">Seconds</label>
+            </div>
+        </div>
+
+        <div class="binge-watch-info-container">
+            <h4>You can binge watch:</h4>
+            <ul id="bingWatchList"></ul>
+        </div>
+        <!-- TODO: number of pushups
+        number of one piece episodes
+        number of breaking bad episodes
+        number of let it go
+        number of Sheila Majid - Sinaran -->
+    </main>
+
+    <footer class="fixed my-footer">
+        <p class="text-right">
+            Made with <span class="--colour-red">&#9829;</span> by <a href="http://github.com/Kwasen"
+                target="_blank">Mabweh</a>
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/countdown/2.6.0/countdown.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+</body>
+
+</html>
