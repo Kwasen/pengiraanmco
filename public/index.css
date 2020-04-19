@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+/* BLOCK */
+body {
+  display: grid;
+  grid-template-rows: 90vh 5vh;
+  grid-template-columns: auto;
+  text-align: center;
+  background-color: whitesmoke;
+}
+
+.heading {
+    letter-spacing: 0.1em;
+    font-size: 2em;
+    font-family: cursive;
+    margin-top: -0.1em;
+    margin-bottom: 1.5em;
+    /* animation: pulse 60s infinite; */
+}
+
+.time-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -3em;
+}
+
+.binge-watch-info-container {
+    border: 1px solid gainsboro;
+    padding: 0.2em;
+}
+
+.my-footer {
+  border-top: 1px solid darkgray;
+  display: flex;
+  justify-content: center;
+  padding: 1vw;
+}
+
+/* ELEMENT */
+
+.time-container .left, .time-container .right {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-container .left span {
+    font-size: 2.5em;
+    font-family: 'Anton', sans-serif;
+    color: rgb(83, 61, 61);
+}
+
+.time-container .left span::after {
+    content: ":";
+    padding: 0 0.1em;
+    color: rgb(196, 89, 89);
+}
+
+.time-container .right label {
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 3px;
+    color: rgb(168, 161, 161);
+}
+
+.time-container .right label::first-letter {
+    font-size: 2.5em;
+    font-family: 'Anton', sans-serif;
+    color: rgb(156, 93, 93);
+}
+
+.binge-watch-info-container ul {
+    list-style: none;
+}
+
+/* MODIFIERS */
+.--colour-red {
+    color: red;
+}
+
+.--align-left {
+    text-align: left;
+}
+
+.--align-right {
+    text-align: right;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 600px) {
+    body {
+        display: grid;
+        grid-template-rows: 91% 9%;
+    }
+
+    .heading {
+        margin-top: 0.2em;
+        margin-bottom: 1.5em;
+    }
+
+  body main {
+    background-color: red;
+  }
+}
+
+/* ANIMATION */
+@keyframes pulse {
+  0% {
+      color: firebrick;
+    }
+    50% {
+        color: rgb(196, 89, 89);
+  }
+    100% {
+        color: rgb(83, 61, 61);
+  }
+}
