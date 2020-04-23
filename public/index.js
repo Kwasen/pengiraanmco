@@ -3,7 +3,7 @@ const { takeUntil } = rxjs.operators;
 
 // CONSTANTS
 let beenHereTimer = 0; // 10 seconds
-const mcoDay = moment([2020, 03, 28]);
+const mcoDay = moment([2020, 4, 12]);
 const showDays = document.getElementById('showDays');
 const showHours = document.getElementById('showHours');
 const showMinutes = document.getElementById('showMinutes');
@@ -13,7 +13,13 @@ const movieTimes = [
     { name: 'Breaking bad', duration: { days: 2, hours: 14, minutes: 0 } },
     { name: 'Money Heist', duration: { days: 0, hours: 22, minutes: 54 } },
     { name: 'Stranger Things', duration: { days: 0, hours: 20, minutes: 50 } },
-    { name: 'Standard anime episode (23 min)', duration: { days: 0, hours: 0, minutes: 23 } }
+    { name: 'Standard anime episode (23 min)', duration: { days: 0, hours: 0, minutes: 23 } },
+    { name: 'Adventure Time', duration: { days: 2, hours: 22, minutes: 45 } },
+    { name: 'Avatar: The Last Airbender', duration: { days: 1, hours: 6, minutes: 30 } },
+    { name: 'The Big Bang Theory', duration: { days: 5, hours: 19, minutes: 30 } },
+    { name: 'The Simpsons', duration: { days: 14, hours: 6, minutes: 30 } },
+    { name: 'Friends (1994)', duration: { days: 5, hours: 1, minutes: 0 } },
+    { name: 'How I Met Your Mother', duration: { days: 4, hours: 8, minutes: 0 } }
 ];
 
 // ---- //
@@ -23,6 +29,9 @@ const source = interval(1000);
 
 //after countdown milliseconds is reached, emit value
 const timer$ = timer(countdown(moment(), mcoDay).value);
+
+// set formatted countdown date
+document.getElementById('mcoCountDownFormattedDate').innerText = mcoDay.format('Do MMMM, YYYY');
 
 const subscribe = source.pipe(takeUntil(timer$)).subscribe((val) => {
     beenHereTimer = val;
@@ -52,9 +61,14 @@ function calculateMovieBinge(countdownTimeInMinutes) {
     movieTimes.forEach((movie) => {
         movie.duration['totalMinutes'] = ((movie.duration.days * 24) * 60) + (movie.duration.hours * 60) + (movie.duration.minutes);
 
-        movie['rewatchByCountdownDifference'] = countdownTimeInMinutes > movie.duration['totalMinutes'] ? (countdownTimeInMinutes / movie.duration['totalMinutes']) : (movie.duration['totalMinutes'] / countdownTimeInMinutes);
+        if (countdownTimeInMinutes > movie.duration['totalMinutes']) {
+            movie['rewatchByCountdownDifference'] = (countdownTimeInMinutes / movie.duration['totalMinutes']);
+            movie['rewatchByCountdownDifference'] = Math.trunc(movie['rewatchByCountdownDifference']);
+        } else {
+            movie['rewatchByCountdownDifference'] = (movie.duration['totalMinutes'] / countdownTimeInMinutes).toFixed(1);
+        }
 
-        movie['rewatchByCountdownDifference'] = Math.trunc(movie['rewatchByCountdownDifference']);
+
     });
 
     displayBingeWatchInfo(movieTimes);
@@ -65,7 +79,7 @@ function displayBingeWatchInfo(movieTimes) {
     document.getElementById('bingWatchList').textContent = '';
     movieTimes.forEach((movie) => {
         let listItem = document.createElement("li");
-        listItem.innerText = `${movie.name} - ${movie['rewatchByCountdownDifference']} times`;
+        listItem.innerHTML = `${movie.name} - <strong>${movie['rewatchByCountdownDifference']} times</strong>`;
         document.getElementById('bingWatchList').appendChild(listItem);
     });
 }
