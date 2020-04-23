@@ -86,7 +86,7 @@ body {
 }
 
 /* RESPONSIVENESS */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     body {
         display: grid;
         grid-template-rows: 91% 9%;
@@ -97,9 +97,23 @@ body {
         margin-bottom: 1.5em;
     }
 
-  body main {
-    background-color: red;
+  .bingeWatchList {
+      text-align: left;
+      padding: 1em 0.5em;
   }
+
+  .bingeWatchList li {
+      padding: 0.2em;
+      background-color: rgb(240, 228, 228);
+      border-left: 2px solid black;
+      margin: 0.5em 0em;
+  }
+
+  .binge-watch-info-container {
+    border: 1px solid gainsboro;
+    padding: 0.2em;
+    margin-bottom: 2em;
+    }
 }
 
 /* ANIMATION */
