@@ -1,9 +1,9 @@
-const { interval, timer, pipe } = rxjs;
+const { interval, Subject, pipe } = rxjs;
 const { takeUntil } = rxjs.operators;
 
 // CONSTANTS
 let beenHereTimer = 0; // 10 seconds
-const mcoDay = moment([2020, 4, 12]);
+const mcoEndDay = moment([2020, 5, 9]);
 const showDays = document.getElementById('showDays');
 const showHours = document.getElementById('showHours');
 const showMinutes = document.getElementById('showMinutes');
@@ -28,18 +28,39 @@ const movieTimes = [
 const source = interval(1000);
 
 //after countdown milliseconds is reached, emit value
-const timer$ = timer(countdown(moment(), mcoDay).value);
+const destroy$ = new Subject();
+
+console.log('2505600 vs countdown:: ', countdown(moment(), mcoEndDay));
 
 // set formatted countdown date
-document.getElementById('mcoCountDownFormattedDate').innerText = mcoDay.format('Do MMMM, YYYY');
+document.getElementById('mcoCountDownFormattedDate').innerText = mcoEndDay.format('Do MMMM, YYYY');
 
-const subscribe = source.pipe(takeUntil(timer$)).subscribe((val) => {
-    beenHereTimer = val;
-    prepareTimeDifference(moment());
-});
+const subscribe = source.pipe(takeUntil(destroy$))
+    .subscribe((val) => {
+        beenHereTimer = val;
+        prepareTimeDifference(moment());
+
+        let countDownDiff = countdown(moment(), mcoEndDay);
+        if ([countDownDiff.days, countDownDiff.hours, countDownDiff.minutes, countDownDiff.seconds].every((val) => val <= 0)) {
+            console.log('MCO Ended:: ', beenHereTimer);
+            destroy$.next();
+
+            showItsOver();
+        }
+    });
+
+function showItsOver() {
+    document.getElementById('timeContainer').style.display = 'none';
+    document.getElementById('bingeWatchInfo').style.display = 'none';
+
+    const showMsg = document.createElement('div');
+    document.getElementById('mainTag').children[0].style.display = 'none';
+    document.getElementById('mainTag').appendChild(showMsg);
+    showMsg.innerHTML = `<h3>MCO is over. Good luck!</h3>`
+}
 
 function prepareTimeDifference(momentNow) {
-    const countdownTime = countdown(momentNow, mcoDay);
+    const countdownTime = countdown(momentNow, mcoEndDay);
     showDays.innerText = countdownTime.days;
     showHours.innerText = countdownTime.hours;
     showMinutes.innerText = countdownTime.minutes;
